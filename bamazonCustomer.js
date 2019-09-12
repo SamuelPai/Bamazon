@@ -49,16 +49,19 @@ var connection = mysql.createConnection({
             }
             
           ]).then(function(inquirerResponse) {
-              console.log('inqRes', inquirerResponse)
+              console.log("----------------------------------------------------------------------------");
+              console.log('Order Info:', inquirerResponse)
               connection.query("SELECT * FROM products WHERE ?", {
                   item_id: inquirerResponse.productId,
               }, function(err, res) {
-                  console.log('res', res);
-                  const stockQuantity = res[0].stock_quantity - inquirerResponse.quantity;
-                  console.log('stockQ', stockQuantity);
-                  if (err) throw err;
-                    
-                  connection.query(
+                    if (err) throw err;
+                    else if (inquirerResponse.quantity > res[0].stock_quantity) {
+                      console.log("Sorry, the product you requested is out of stock. Please check back later!");
+                      connection.end();
+                  } else {
+                    const stockQuantity = res[0].stock_quantity - inquirerResponse.quantity;
+                    console.log('Stock Quantity:', stockQuantity);
+                        connection.query(
                     "UPDATE products SET ? WHERE ?",
                     [
                       {
@@ -70,10 +73,20 @@ var connection = mysql.createConnection({
                     ],
                     function(error, result) {
                       if (error) throw err;
-                      console.log("Bid placed successfully!");
+                      var finalCost = (res[0].price) * inquirerResponse.quantity;
+                      console.log("Purchase succesful! Total cost of your purchase is: $" + finalCost);
+                      console.log("----------------------------------------------------------------------------");
+
                         connection.end();
                     }
                   );
+
+                  }
+                //   console.log('res', res);
+                 
+                  
+                    
+                
               });
               
             })
