@@ -157,7 +157,8 @@ function readProducts(products) {
                         connection.end();
 
                     })
-                    break;
+                    break; 
+                    
 
                 } 
                 
