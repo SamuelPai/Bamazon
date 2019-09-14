@@ -44,7 +44,7 @@ function readProducts(products) {
 
                         if (err) throw err;
                         for (var i = 0; i < res.length; i++) {
-                            items.push("Item ID: " + res[i].item_id + ", Item Name: " + res[i].product_name + ", Price: " + res[i].price + ", Quantity: " + res[i].stock_quantity);
+                            items.push("Item ID: " + res[i].item_id + ", Item Name: " + res[i].product_name + ", Price: $" + res[i].price + ", Quantity: " + res[i].stock_quantity);
                         }
 
                         for (var x = 0; x < items.length; x++) {
@@ -60,7 +60,7 @@ function readProducts(products) {
                         if (err) throw err;
                         var lowStock = [];
                         for (var i = 0; i < res.length; i++) {
-                            lowStock.push("Item ID: " + res[i].item_id + ", Item Name: " + res[i].product_name + ", Price: " + res[i].price + ", Quantity: " + res[i].stock_quantity);
+                            lowStock.push("Item ID: " + res[i].item_id + ", Item Name: " + res[i].product_name + ", Price: $" + res[i].price + ", Quantity: " + res[i].stock_quantity);
                         }
                         for (var x = 0; x < lowStock.length; x++) {
                             console.table (lowStock[x]);
@@ -128,16 +128,35 @@ function readProducts(products) {
                     inquirer.prompt([
                         {
                             type: "input",
-                            name: "choice",
-                            message: "What is the id of the item you would like to add stock to?"
+                            name: "productName",
+                            message: "What is name of the product you would like to add?"
                         },
                         {
                             type: "input",
-                            name: "stock",
-                            message: "How many units would you like to add?"
+                            name: "price",
+                            message: "How much does the product cost?"
+                        },
+                        {
+                            type: "input",
+                            name: "quantity",
+                            message: "What is the stock quantity of the product?"
                         }
                         
-                    ])
+                    ]).then(function(res) {
+                        connection.query(
+                            "INSERT INTO products SET ?",
+                            {
+                                product_name: res.productName,
+                                price: res.price,
+                                stock_quantity: res.quantity
+                            }, 
+                            function(err) {
+                                if (err) throw err;
+                            }
+                        )
+
+                    })
+                    connection.end();
                     break;
                 } 
                 
