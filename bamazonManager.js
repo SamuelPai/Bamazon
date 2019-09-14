@@ -154,10 +154,11 @@ function readProducts(products) {
                                 if (err) throw err;
                             }
                         )
+                        connection.end();
 
                     })
-                    connection.end();
                     break;
+
                 } 
                 
 
