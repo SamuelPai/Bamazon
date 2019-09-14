@@ -12,3 +12,9 @@ bamazonManager.js: Once users run this application, they will be prompted with 4
 
 Technologies Used: Javascript, Node.js, NPM, MySQL 
 Created by: Sam Pai. For any questions or for further information, please email me at SamuelPai16@gmail.com
+
+![BamazonCustomer](bamazonCustomer.gif)
+![BamazonManager1](bamazonManager1.gif)
+![BamazonManager2](bamazonManager2.gif)
+![BamazonManager3](bamazonManager3.gif)
+![BamazonManager4](bamazonManager4.gif)
