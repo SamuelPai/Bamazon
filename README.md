@@ -1,4 +1,4 @@
-# bamazon
+# bamazon web application
 This app has two components, one for customers and another for managers. The customer app will allow users to view what items are in stock and how many items the users would like to buy. The manager app will allow users to view products, view low inventory, add to inventory, and add new product. Both are built using Node.js and Mysql. 
 
 The bamazon app is organized into 3 main files: bamazonCustomer.js, bamazonManager.js, and mysql.sql. Both the js files are linked to the mysql database in order to populate and store product data.
